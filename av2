@@ -1,0 +1,16 @@
+{
+  " nome " : " kinghost / api-php " ,
+  " descrição " : " Cliente para API de revenda da KingHost " ,
+  " tipo " : " biblioteca " ,
+  " licença " : " BSD-3-Cláusula " ,
+  " palavras-chave " : [],
+  " homepage " : " http://www.kinghost.com.br " ,
+  " autores " : [
+    {
+      " nome " : " KingHost "
+    }
+  ],
+  " requer " : {
+    " php " : " > = 5.3.0 "
+  }
+}
