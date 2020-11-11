@@ -1,0 +1,767 @@
+$(document).ready(function () { 
+    
+	//ajusta ancora!!
+	posicionarAncora();
+	
+    //BTN HOME ADM - Lamihom
+    $(document).on('click','.titulo-adm > div > h3 > i', function(){
+        window.open('entrada.php', '_self');
+    });
+
+    
+	//Materialize INIT
+    //$('.modal').modal('open');
+	//$('.modal').modal();
+	
+
+    $(' .linhaTema ').hide();
+    //$(' .recursosLinha ').hide();
+    $(' .seta-conteudo-geral ').hide();
+
+    /*
+        TituloRA -->> Visão Geral
+    */
+
+    //$(' .tituloRA ').hide();
+
+    $(' .collapsible-headerRA ').click(function(){
+
+        var textoRA = $(this).find('.ra').text().replace('O conteúdo deste tema de estudo irá te ajudar a:','');
+
+        $(' .tituloRA ').html("<h3 class='thin tema1-text'>"+textoRA+"</h3>");
+
+    });
+
+    $(' .collapsible-body ').mouseover(function(){
+
+        $(' .tituloRA ').fadeIn('slow');
+
+    });
+
+    /* 
+        Fixando o BarraLogado no TOP 
+    */
+   /*
+    var nav = $('#barraLogado');
+    
+    $(window).scroll(function () {
+        
+        if ($(this).scrollTop() > 150) { 
+
+            nav.addClass("barraLogado");
+            $(" #barraCaminho ").fadeIn();
+
+        } else { 
+
+            nav.removeClass("barraLogado");
+            $(" #barraCaminho ").fadeOut();
+
+        }
+        
+    });
+    */
+
+    /*
+        Fixando o FOOTER
+    */
+     
+     $('.footer').hide();
+     //$('.tooltipped').tooltip();
+
+    //lista disciplinas
+    var tamanhoWindows = $(window).height(),
+        tamanhoBodylista = $(" #body-lista ").height(),
+        tamanhoBody = tamanhoBodylista + 100;
+
+
+    if ( tamanhoBody <= tamanhoWindows ) {
+        
+        $(' .footer-lista ').css({ "position" : "absolute" , "bottom":"0px" });
+        $(" #body-lista ").css({"height" : "100%"});
+
+    } else {
+
+        $(' .footer-lista ').css({ "position" : "relative" , "bottom":"auto" });
+        $(" #body-lista ").css({"height" : "auto"});
+    }
+
+    //lista disciplinas
+    var tamanhoWindows = $(window).height(),
+        tamanhoBodylista = $(" #body-content ").height(),
+        tamanhoBody = tamanhoBodylista + 100;
+
+    if ( tamanhoWindows <= tamanhoBody ) {
+
+        $(' .footer ').css({ "position" : "absolute" , "bottom":"0px" });
+        $(" #body-content ").css({"height" : "100%"});
+        
+        
+    } else {
+
+        $(' .footer ').css({ "position" : "relative" , "bottom":"auto" });
+        $(" #body-content ").css({"height" : "auto"});
+        
+    }
+	
+	
+
+    var tamanhoW = $(window).height(), //Controla o Footer com a Lista do Conteúdo...
+        tamanhoX = $(' .tudox ').height();
+
+    if ( tamanhoW <= tamanhoX ) {
+
+        $(' .footer ').css({ "position" : "relative" , "bottom":"auto" });
+        $(" #body-content ").css({"height" : "auto"});
+
+    }
+	
+	
+	
+
+    /*
+        FIM -- > Fixando o FOOTER
+    */
+        
+    $(" #li-brad").click(function(){
+
+        var idBrad = $(this).find('b').attr('id');
+
+            scrollMain('#' + idBrad ,1200);
+            $(' .seta-conteudo-geral ').fadeOut();
+
+    });
+
+    $(' .conteudo ').on('mouseenter', function(){
+
+        $(' .seta-conteudo-geral ').fadeOut();
+
+    });
+
+    $(" #showConteudo ").on('mouseenter', function(){
+        
+        $(' .seta-conteudo-geral ').fadeIn();
+
+    });
+
+    $(document).on('click',' #versaoPublicada ', function(){
+        /*var click           = $(this).attr('class'),
+            clickHeader     = click.replace('blue-grey white-text',''),
+            classArrow    = $(this).find(' h5 > i:only-child ').attr('class');
+        */
+
+        var teste = $(this).parent().find('h5 > i').attr('class');
+
+            //alert(teste);
+        
+        if ( classArrow == 'ion-chevron-right' ) {
+            $('.' + classArrow).addClass('ion-chevron-down');
+            $('.' + classArrow).removeClass('ion-chevron-right');
+        }else { 
+            $('.' + classArrow).addClass('ion-chevron-right');
+            $('.' + classArrow).removeClass('ion-chevron-down');
+        }
+    });
+
+    // -->> MODELO RA <<-- //
+    $('.collapsible').collapsible();
+
+    //BLOCO
+    //$(' .transparencia > div > span ').css({'background':'url(img/gestao.png) no-repeat','background-size':'cover'});
+    $(' .transparencia > div:after ').css({'background-color':'orange'});
+
+    //BTN - TRIGGER
+	/*
+    $(document).on('click','.modal-trigger',function(){
+
+       // var idNivel = $(this).attr('data-target');
+       // console.log(idNivel);
+       // $(' .modal ').attr('id', idNivel);
+       // $("#".idNivel).modal('open');
+       // $(' #conteudoModal ').load("recurso/"+ idNivel +".html");
+	   
+	   //$("#modalExtra_30158").modal('open');
+
+    });
+	*/
+	
+
+    //** DISCIPLINA RA **//
+	/*
+    $(document).on('click','.trigger',function(){
+
+        var idNivel = $(this).attr('data-target'),
+            idTitulo = idNivel.replace('_',' ');
+
+        console.log(idNivel);
+
+        $(' .modal ').attr('id', idNivel);
+        $(' .titulo-recurso > div > h5 ').text(idTitulo);
+        $('#'+idNivel).modal('open');
+        $(' #conteudoModal ').load("recurso/"+ idNivel +".html");
+
+    });
+	*/
+
+    $(document).on('click','.collapsible-header',function(){
+
+        var idTema      = $(this).attr('id'),
+            tituloRa    = $(' .ra > p ').text(),
+            alturaBody  = $(' .collapsible-body ').height();
+
+        $('.linhaTema > span > div').removeClass(' tema1 tema2 tema3 ');
+
+        //$("html, body").animate({ scrollTop: $("#"+idTema).offset().top }, "slow");
+
+        $('.linhaTema > span > div').addClass(idTema).text(tituloRa);
+
+    });
+
+	/*
+    $(document).on('click','nav > li > i', function(){
+
+        var btnMenu 		= $(this).text().trim();
+        var objLinhaRecuros = document.getElementById('recursosLinha');
+
+		
+
+        if ( btnMenu == 'add_circle_outline' ) {
+            
+			controleBotaoRecursosExtras( 'abrir' );
+            
+            			            
+        }
+        if ( btnMenu == 'remove_circle_outline' ) {
+
+            controleBotaoRecursosExtras( 'fechar' );
+
+        }
+		
+    });
+	*/
+
+    /*
+    $(document).on('click','.iconeRecurso > a > i', function(){
+
+        var btnRecursos = $(this).text().trim(),
+            btnTema     = $(this).attr('data');
+
+        if ( btnRecursos == 'apps' ) {
+
+            $(this).text('notes');
+            
+            $(" #recurso ").hide().load('recurso/video.html', function() {
+                $(this).fadeIn(1000);
+            });
+        }
+
+        if ( btnRecursos == 'notes' ) {
+
+            $(this).text('apps');
+            
+            $(" #recurso ").hide().load('recurso/texto.html', function() {
+                $(this).fadeIn(1000);
+            });
+
+        }
+
+    });*/
+    //** DISCIPLINA RA -- FIM **//	
+	
+});
+
+    		
+
+    function filtraElementos(elemento){
+
+        var strTipos = 'video,texto,img,audio,outro,objeto';
+        var arrTipos = strTipos.split(",");
+        var tamanho = arrTipos.length;
+        var tipo 	= '';
+
+        $(' .ico li ').removeClass('select');
+        $("#" + elemento).addClass('select');
+            
+        for(var aux=0;aux<tamanho;aux++)
+        {	
+            var tipo = arrTipos[aux];
+            
+            
+            if(elemento != 'all')
+            {
+                //escondemos os elementos diferente do elemento passado
+                if(tipo != elemento){
+                    
+                    var objetos 	= $('.' + tipo + '-ctrl')
+                    var numObjetos 	= objetos.length;
+                    
+                    for(var i=0;i<numObjetos;i++){
+                        $(objetos[i]).hide('slow',controlaTituloConteudo);
+                    }
+                }	
+                
+                //escondemos os elementos diferente do elemento passado
+                if(tipo == elemento)
+                {
+                    var objetos 	= $('.' + tipo + '-ctrl')
+                    var numObjetos 	= objetos.length;
+                    
+                    for(var i=0;i<numObjetos;i++){
+                        $(objetos[i]).show('slow',controlaTituloConteudo);
+                    }
+                    
+                }
+            }
+            else{
+                //mostramos todos os objetos...
+                var objetos 	= $('.' + tipo + '-ctrl')
+                var numObjetos 	= objetos.length;
+                
+                for(var i=0;i<numObjetos;i++){
+                    $(objetos[i]).show('slow', controlaTituloConteudo);
+                }
+            }
+        }
+    }
+
+
+    function controlaTituloConteudo(){
+
+        var objeto1 	= $('.base-ctrl');
+        var objeto2 	= $('.complemento-ctrl');
+        var objTitulo1	= $('.tituloBase-ctrl');
+        var objTitulo2	= $('.tituloMais-ctrl');
+        var objBarra	= $('.barraCinza-ctrl');
+        var temAtivo1	= 0;
+        var temAtivo2	= 0;
+
+        objeto1.find("> .elemento-ctrl").each(function() {		
+            if($(this).is( ":visible" ))
+                temAtivo1++;
+                
+        });
+
+            
+        objeto2.find("> .elemento-ctrl").each(function() {			
+            if($(this).is( ":visible" ))
+                temAtivo2++;
+        });		
+
+        if(temAtivo1 == 0 )
+            $(objTitulo1[0]).hide('slow');
+        else
+            $(objTitulo1[0]).show('slow');		
+
+        if(temAtivo2 == 0 ){        
+            $(objTitulo2[0]).hide('slow');
+            $(objBarra[0]).removeClass(' grey lighten-3 ');
+        }
+        else {
+            $(objTitulo2[0]).show('slow');		
+            $(objBarra[0]).addClass(' grey lighten-3 ');
+        }
+    }
+
+	/**
+		FUNCAO CONTROLA A SETA 
+    **/
+    
+    function seta(){
+		scrollMain('#conteudoTopo',1500);
+		$(' .seta-conteudo-geral ').hide();	
+		fecharVideosVisao();
+		fecharVideosConteudoLocal();
+    }
+    /** 
+        CONTROLE SETA
+    **/ 
+    function setaRA(){
+        scrollMain('.header',1500);
+        setTimeout(function(){ $(this).hide(); }, 1000);
+		
+		objFeedback = document.getElementById("feedback");		
+		if(objFeedback.value == 0)
+			controleBotaoRecursosExtras( 'fechar', 1 );
+    }
+    
+
+    var nav = $('.seta-conteudo-geral');
+    
+    $(window).scroll(function () {
+        
+        if ($(this).scrollTop() > 150) { 
+            //nav.addClass("barraLogado"); 
+            $(nav).fadeIn();
+        } else { 
+            //nav.removeClass("barraLogado");
+            $(nav).fadeOut();
+        }
+        
+    });
+	
+	/**
+		FUNÇÃO PARA FAZER SCROLL 
+	**/
+    function scrollMain(elemento, tempo) {
+		tempo = 500; //fixado para ficar mais objetivo
+		$('html, body').animate({
+			scrollTop: $( elemento ).offset().top
+		}, tempo);
+
+    }
+
+
+    var jaCarregado = '#';
+    function controlaScrollDivLoading(elemento,id)
+	{
+
+		var objLoading	= document.getElementById("divLoading");
+		var elementoX   = elemento + id;
+		var pos 	    = jaCarregado.search(elementoX);
+		var loading     = 0;
+
+		if(pos >= 0){
+			var loading = 1;
+		}else
+			jaCarregado = jaCarregado + ',' + elementoX;
+
+
+		//controla loading...
+		if(loading == 0) {
+			objLoading.style.display="";    	
+			//$(document).scrollTo(" #divLoading ", 1200);
+			scrollMain('#divLoading',1200);
+		}
+
+		return loading;
+    }
+	
+	//posicionarAncoraVisao();
+	
+	
+	function posicionarAncora()
+	{		
+		objAncora 	= document.getElementById("ancoraRef");
+		if(objAncora)
+		{
+			objCarregar = document.getElementById("carregarAuto");		
+			ancoraRef 	= objAncora.value;
+			carregar    = objCarregar.value;
+			objCarregar.value = 0;
+			
+		
+			if(ancoraRef != ''){
+			
+				//'Tema#80#SubTema#1'
+				//'Tema#80'
+				var arrDados = ancoraRef.split("#");
+				tema 		 = arrDados[1];
+				
+				if(arrDados.length == 4)
+					ordemAncora  = arrDados[3];
+				
+				if(arrDados.length == 2)
+					ordemAncora  = '';
+				
+				
+					
+				var objCodigo = document.getElementById("AuxCodTema" + tema)
+				var objOrdem  = document.getElementById("AuxOrdemTema" + tema)
+				var objNome   = document.getElementById("AuxNomeTema" + tema)
+				
+				if(ordemAncora == '')
+					var ancoraAuto    = "#TemaXX";
+				else
+					var ancoraAuto    = "'#Subtema_" + ordemAncora + "'";
+
+				codTema  = objCodigo.value;
+				ordem 	 = objOrdem.value;
+				nomeTema = objNome.value;
+				
+				classeTema = "'tema" + ordem + "'";
+				nomeTema   = "'" + nomeTema + "'"
+				
+				console.log(classeTema);
+				console.log(nomeTema);
+				console.log(codTema);
+				console.log(ancoraAuto);
+				
+				if(carregar == 1)
+					showHideConteudo('V',codTema,classeTema,nomeTema,'xxxx', ancoraAuto);
+			}
+		}
+	}
+	
+	
+	function ajustarParametros(string){
+		
+		var arrDados = string.split("'");
+		if(arrDados.length > 1)
+			string = arrDados[1];
+		else
+			string = arrDados[0];
+		
+		return string;
+	}
+
+    function showHideConteudo(elemento, id, tema, tituloTema, SubTema, ancoraAuto = '' )
+    {
+			
+		ancoraAuto 	= ajustarParametros(ancoraAuto);
+		tema 		= ajustarParametros(tema);
+		tituloTema	= ajustarParametros(tituloTema);		
+		
+		
+		var objElementoMostrar  = document.getElementById("showConteudo_" + elemento + id);
+		var objElementoAtivo	= document.getElementById("elementoAtivo");
+		var objLoading			= document.getElementById("divLoading");
+		var ativo				= objElementoAtivo.value;
+		var objTitulo			= document.getElementById("li-brad");
+		var ancora              = tema.replace('tema','');
+		
+		
+		
+		
+		// controle elemento ativo.
+		objConteudo  = document.getElementById('conteudoAtivo');
+		objVisao	 = document.getElementById('visaoAtivo');
+
+		objTitulo.style.display="none";  
+
+		fecharVideosVisao();
+		fecharVideosConteudoLocal();
+
+		
+
+		var carregado = controlaScrollDivLoading(elemento,id);
+
+			
+		//Essa linha limpa a Cor do Texto
+		$(' .TituloShowConteudo > h2 ').removeClass("  tema1-text tema2-text tema3-text tema4-text tema5-text tema6-text ");
+
+
+		if(elemento == 'S'){
+			
+			// controle elemento ativo.
+			objConteudo.value = id;
+			objVisao.value = 0;
+					
+			if(carregado == 0){
+				$('#showConteudo_' + elemento + id).load('content/conteudo.php?codSubTema=' + id, function() {            
+					objLoading.style.display="none";   			
+					
+					$(' .TituloShowConteudo > h2 ').addClass(tema + '-text');
+					$(" #brad ").html( "<b id=cont-" + ancora + ">" + tituloTema + "</b> > " + SubTema);		
+					ajustaClassesTitulo( tema );
+					
+					objTitulo.style.display=""; 
+					//$(document).scrollTo(" #li-brad ", 1500);
+					scrollMain('#li-brad',1500);
+					
+				});
+			}else{
+
+				$(' .TituloShowConteudo > h2 ').addClass(tema + '-text');
+				$(" #brad ").html( "<b id=cont-" + ancora + ">" + tituloTema + "</b> > " + SubTema);				
+				ajustaClassesTitulo( tema );			
+				objTitulo.style.display=""; 
+				
+				//$(document).scrollTo(" #li-brad ", 1500);
+				scrollMain('#li-brad',1500);
+
+			}
+			
+			registraAcessoAluno(0, id, 0, 0);
+			
+		}
+		else{
+			
+			// controle elemento ativo.
+			objConteudo.value = 0;
+			objVisao.value = id;
+			
+			$(" #brad ").html( "<b id=cont-" + ancora + ">" + tituloTema + "</b>");
+			
+			
+			
+			if(carregado == 0){
+				$('#showConteudo_' + elemento + id).load('content/visaoGeral.php?codTema=' + id, function() 
+				{	
+					objLoading.style.display="none";   			                
+					ajustaClassesTitulo( tema );			
+					objTitulo.style.display=""; 
+					$('.collapsible').collapsible();
+
+					if(ancoraAuto == '' || ancoraAuto == '#Subtema_1')
+						scrollMain('#li-brad',1500);
+					else{
+						scrollMain(ancoraAuto,1500);
+					}
+					
+					
+					
+					
+				});
+			}else{
+				$(" #brad ").html( "<b id=cont-" + ancora + ">" + tituloTema + "</b>");
+				ajustaClassesTitulo( tema );			
+				objTitulo.style.display=""; 
+				
+				
+				if(ancoraAuto == '' || ancoraAuto == '#Subtema_1')
+					scrollMain('#li-brad',1500);
+				else
+					scrollMain( ancoraAuto , 1500);
+					//scrollMain( ancoraAuto , 1500);
+				
+				
+			}
+			
+			registraAcessoAluno(id, 0, 0, 0);
+		}
+
+		//registraAcessoAluno(codTema, codSubTema, codConteudo, finaliza);
+
+			
+		if(ativo != 'vazio') {
+			objElementoEsconder	= document.getElementById("showConteudo_" + ativo);
+			objElementoEsconder.style.display = 'none';
+		}
+
+
+		$( objElementoMostrar ).fadeIn(1500);
+		valorAtivo = elemento + id;
+		objElementoAtivo.value = valorAtivo;
+    }
+
+      
+
+    function registraAcessoAluno(codTema, codSubTema, codConteudo, finaliza){
+
+
+    $.ajax({
+            method: "POST",
+            url: "logAluno.php",
+            data: { codTema: codTema, codSubTema: codSubTema, codConteudo: codConteudo, finaliza: finaliza }
+        })
+
+    }
+
+
+    function regitraLogConteudo(codConteudo){
+
+		registraAcessoAluno(0, 0, codConteudo, 0);
+    }
+
+
+    function regitraLogAtividade() {
+
+    $.ajax({
+            method: "POST",
+            url: "logAluno.php",
+            data: { atividade: 'blackboard', finaliza: 1 }
+        })
+        
+    }
+
+    window.onbeforeunload = sairPagina;
+
+    function sairPagina()
+    {
+		registraAcessoAluno(0, 0, 0, 1);
+    }
+
+
+    function ajustaClassesTitulo( tema ){
+
+        //Linha com o Nome do TEMA e SubTema escolhido
+        $(" #li-brad ").removeClass(" tema1 tema2 tema3 tema4 tema5 tema6 tema7");
+        $(" #li-brad ").addClass(tema);
+
+
+        $(" #cor-geral-visao ").removeClass(" tema1 tema2 tema3 tema4 tema5 tema6 tema7");
+        $(" #cor-geral-visao ").addClass(tema);
+
+        //Cor da Seta == a cor do Tema
+        $(" .seta-conteudo-geral ").fadeIn();
+        $(" #seta ").removeClass("  tema1-text tema2-text tema3-text tema4-text tema5-text tema6-text tema7-text");
+        $(" #seta ").addClass( tema + "-text");
+
+        //Titulo do Recurso == a cor do Tema
+        $(" .titulo-recurso > div ").removeClass(" tema1 tema2 tema3 tema4 tema5 tema6 tema7");
+        $(' .titulo-recurso > div ').addClass( tema );    
+
+    }
+
+
+    function temaSetado(){
+        scrollMain('#li-brad',1200);
+    }
+
+
+function copiar () {
+    
+    var link = $("#linkObjeto").text();
+
+}
+
+
+function mostarRelatorioMa (el) {
+
+}
+
+$(document).ready(function(){
+
+    $(" #mostarRelatorioMateriais ").hide();
+
+    $(document).on('click','#itemRela', function(){
+
+        var item = $(this).text();
+
+        $(' .menuRelatorioMateriais > li ').removeClass('acitveRelatorio');
+        $(" #mostarRelatorioMateriais ").hide();
+
+        $(this).addClass('acitveRelatorio');
+        $(" #mostarRelatorioMateriais ").fadeIn();
+
+        if ( item == item  ) {
+
+            $(' .mostraTitulo > th ').text( item );
+            $(" #mostarRelatorioMateriais ").fadeIn();
+
+        }
+
+    });
+
+    $(' .mostarRelatorio > thead > th > i ').click(function(){
+        alert('oi');
+    });
+
+});
+
+function homeRelatorio () {
+    window.location = "./"
+}
+
+
+function alertarUsuario(mensagemAlerta){
+	
+	Materialize.toast( mensagemAlerta, 3000, 'rounded')
+	
+}
+
+
+
+(function ($) {
+    $(function () {
+
+        //initialize all modals           
+        $('.modal').modal();
+
+        //now you can open modal from code
+        $('#modal1').modal('open');
+
+        //or by click on trigger
+        $('.trigger-modal').modal();
+
+        }); // end of document ready
+})(jQuery);
