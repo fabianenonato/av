@@ -1,0 +1,617 @@
+public class Filme {
+
+  public static final int NORMAL = 0;
+  public static final int INFANTIL = 1;
+  public static final int LANCAMENTO = 2;
+
+  private String título;
+  private int preco;
+
+  public Filme(String título, int preco) {
+    this.titulo = titulo;
+    this.preco = preco;
+  }
+
+  public int getPreco() {
+    return preco;
+  }
+
+  public void setPreco(int preco) {
+    this.preco = preco;
+  }
+
+  public String getTitulo() {
+    return titulo;
+  }
+}
+Listagem 1. Classe que representa um Filme
+public class Aluguel {
+  private Filme filme;
+  private int diasAluguel;
+
+  public Aluguel(Filme filme, int diasAluguel) {
+    this.filme = filme;
+    this.diasAluguel = diasAluguel;
+  }
+
+  public Filme getFilme() {
+    return filme;
+  }
+
+  public int getDiasAluguel() {
+    return diasAluguel;
+  }
+}
+Listagem 2. Classe que representa um Aluguel
+public class Cliente {
+
+    private String nome;
+    private List<Aluguel> alugueis;
+
+    public Cliente(String nome) {
+      this.nome = nome;
+      this.alugueis = new ArrayList<Aluguel>();
+    }
+
+    public void addAluguel(Aluguel aluguel) {
+      this.alugueis.add(aluguel);
+    }
+
+    public String getNome() {
+      return nome;
+    }
+
+public String exibirRegistroAlugueis() {
+  double valorTotal = 0;
+  int pontos = 0;
+  StringBuilder dados = new StringBuilder();
+  dados.append("Registro de Aluguéis do cliente: " + getNome() + "\n");
+  for (Aluguel aluguel : this.alugueis) {
+    double valor = 0;
+
+    // Calcula o valor do aluguel
+    switch (aluguel.getFilme().getPreco()) {
+    case Filme.NORMAL:
+    valor += 1.5;
+    if (aluguel.getDiasAluguel() > 3)
+      valor += (aluguel.getDiasAluguel() - 3) * 1.5;
+        break;
+      case Filme.INFANTIL:
+      valor += 2;
+    if (aluguel.getDiasAluguel() > 2)
+      valor += (aluguel.getDiasAluguel() - 2) * 1.5;
+        break;
+      case Filme.LANCAMENTO:
+      valor += aluguel.getDiasAluguel() * 3;
+        break;
+    }
+
+    // Adiciona um ponto
+    pontos++;
+
+    // Bônus para mais de dois dias com um lançamento
+    if (aluguel.getFilme().getPreco() == Filme.LANCAMENTO
+      && aluguel.getDiasAluguel() > 1)
+        pontos++;
+
+    // Adiciona os dados desse aluguel
+      dados.append("\t" + aluguel.getFilme().getTitulo() + "\t");
+      dados.append(" = R$ " + String.valueOf(valor) + "\n");
+
+    valorTotal += valor;
+      }
+
+    // Rodapé
+      dados.append("Total gasto com aluguéis: R$ " + String.valueOf(valorTotal) + "\n");
+      dados.append("Pontos ganhos: " + String.valueOf(pontos));
+
+      return dados.toString();
+    }
+}
+
+
+
+
+
+public class Cliente {
+      // ...
+      public String exibirRegistroAlugueis() {
+            double valorTotal = 0;
+            int pontos = 0;
+            StringBuilder dados = new StringBuilder();
+            dados.append("Registro de Aluguéis do cliente: " + getNome() + "\n");
+            for (Aluguel aluguel : this.alugueis) {
+
+                    // Calcula o valor do aluguel
+                    double valor = calculaValorAlguel(aluguel, valor);
+
+                   // Adiciona um ponto
+                   pontos++;
+
+                   // Bônus para mais de dois dias com um lançamento
+                   if (aluguel.getFilme().getPreco() == Filme.LANCAMENTO
+                                && aluguel.getDiasAluguel() > 1)
+                          pontos++;
+
+                   // Adiciona os dados desse aluguel
+                   dados.append("\t" + aluguel.getFilme().getTitulo() + "\t");
+                   dados.append(" = R$ " + String.valueOf(valor) + "\n");
+
+                   valorTotal += valor;
+            }
+
+            // Rodapé
+            dados.append("Total gasto com aluguéis: R$ " + String.valueOf(valorTotal) + "\n");
+            dados.append("Pontos ganhos: " + String.valueOf(pontos));
+
+            return dados.toString();
+      }
+
+      private double calculaValorAlguel(Aluguel alugue) {
+            double valor = 0;
+            switch (aluguel.getFilme().getPreco()) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (aluguel.getDiasAluguel() > 3)
+                          valor += (aluguel.getDiasAluguel() - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (aluguel.getDiasAluguel() > 2)
+                          valor += (aluguel.getDiasAluguel() - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += aluguel.getDiasAluguel() * 3;
+                   break;
+            }
+            return valor;
+      }
+}
+
+
+
+public class Aluguel {
+      // ...
+      public double getValor() {
+            double valor = 0;
+            switch (getFilme().getPreco()) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (getDiasAluguel() > 3)
+                          valor += (getDiasAluguel() - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (getDiasAluguel() > 2)
+                          valor += (getDiasAluguel() - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += getDiasAluguel() * 3;
+                   break;
+            }
+            return valor;
+      }
+}
+Listagem 5. Classe Aluguel com o novo método getValor()
+public class Cliente {
+      // ...
+      public String exibirRegistroAlugueis() {
+            double valorTotal = 0;
+            int pontos = 0;
+            StringBuilder dados = new StringBuilder();
+            dados.append("Registro de Aluguéis do cliente: " + getNome() + "\n");
+            for (Aluguel aluguel : this.alugueis) {
+
+                   // Calcula o valor do aluguel
+                   double valor += aluguel.getValor();
+
+                   // Adiciona um ponto
+                   pontos++;
+
+                   // Bônus para mais de dois dias com um lançamento
+                   if (aluguel.getFilme().getPreco() == Filme.LANCAMENTO
+                                && aluguel.getDiasAluguel() > 1)
+                          pontos++;
+
+                   // Adiciona os dados desse aluguel
+                   dados.append("\t" + aluguel.getFilme().getTitulo() + "\t");
+                   dados.append(" = R$ " + String.valueOf(valor) + "\n");
+
+                   valorTotal += valor;
+            }
+
+            // Rodapé
+            dados.append("Total gasto com aluguéis: R$ " + String.valueOf(valorTotal) + "\n");
+            dados.append("Pontos ganhos: " + String.valueOf(pontos));
+
+            return dados.toString();
+      }
+}
+
+
+
+
+public class Aluguel {
+      // ...
+      public double getValor() {
+            double valor = 0;
+            switch (getFilme().getPreco()) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (getDiasAluguel() > 3)
+                          valor += (getDiasAluguel() - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (getDiasAluguel() > 2)
+                          valor += (getDiasAluguel() - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += getDiasAluguel() * 3;
+                   break;
+            }
+            return valor;
+      }
+
+      public int getPontos() {
+            int pontos = 1;
+
+            // Bônus para mais de dois dias com um lançamento
+            if (getFilme().getPreco() == Filme.LANCAMENTO && getDiasAluguel() > 1)
+                   pontos++;
+            return pontos;
+      }
+}
+
+public class Cliente {
+      // ...
+      public String exibirRegistroAlugueis() {
+            double valorTotal = 0;
+            int pontos = 0;
+            StringBuilder dados = new StringBuilder();
+            dados.append("Registro de Aluguéis do cliente: " + getNome() + "\n");
+            for (Aluguel aluguel : this.alugueis) {
+                   double valor = 0;
+
+                   // Calcula o valor do aluguel
+                   valor += aluguel.getValor();
+
+                   // Calcula os pontos
+                   pontos += aluguel.getPontos();
+
+                   // Adiciona os dados desse aluguel
+                   dados.append("\t" + aluguel.getFilme().getTitulo() + "\t");
+                   dados.append(" = R$ " + String.valueOf(valor) + "\n");
+
+                   valorTotal += valor;
+            }
+
+            // Rodapé
+            dados.append("Total gasto com aluguéis: R$ " + String.valueOf(valorTotal) + "\n");
+            dados.append("Pontos ganhos: " + String.valueOf(pontos));
+
+            return dados.toString();
+      }
+}
+
+
+
+
+public class Aluguel {
+      // ...
+      public double getValor() {
+            return filme.getValor(diasAluguel);
+      }
+
+      public int getPontos() {
+            return filme.getPontos(diasAluguel);
+      }
+}
+
+
+
+
+public class Filme {
+
+      public static final int NORMAL = 0;
+      public static final int INFANTIL = 1;
+      public static final int LANCAMENTO = 2;
+
+      // ...
+
+      public double getValor(int diasAluguel) {
+            double valor = 0;
+            switch (preco) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (diasAluguel > 3)
+                          valor += (diasAluguel - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (diasAluguel > 2)
+                          valor += (diasAluguel - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += diasAluguel * 3;
+                   break;
+            }
+            return valor;
+      }
+
+      public int getPontos(int diasAluguel) {
+            int pontos = 1;
+
+            // Bônus para mais de dois dias com um lançamento
+            if (preco == Filme.LANCAMENTO && diasAluguel > 1)
+                   pontos++;
+
+            return pontos;
+      }
+}
+
+
+
+
+public abstract class Preco {
+
+      abstract public int getPreco();
+
+}
+
+public class PrecoNormal extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.NORMAL;
+      }
+
+}
+
+public class PrecoInfantil extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.INFANTIL;
+      }
+
+}
+
+public class PrecoLancamento extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.LANCAMENTO;
+      }
+
+}
+
+
+
+
+
+
+public class Filme {
+
+      public static final int NORMAL = 0;
+      public static final int INFANTIL = 1;
+      public static final int LANCAMENTO = 2;
+
+      private String titulo;
+      private int preco;
+
+      public Filme(String titulo, int preco) {
+            this.titulo = titulo;
+            setPreco(preco);
+      }
+
+      public int getPreco() {
+            return preco;
+      }
+
+      public void setPreco(int preco) {
+            this.preco = preco;
+      }
+
+      public String getTitulo() {
+            return titulo;
+      }
+
+      public double getValor(int diasAluguel) {
+            double valor = 0;
+            switch (getPreco()) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (diasAluguel > 3)
+                          valor += (diasAluguel - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (diasAluguel > 2)
+                          valor += (diasAluguel - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += diasAluguel * 3;
+                   break;
+            }
+            return valor;
+      }
+
+      public int getPontos(int diasAluguel) {
+            int pontos = 1;
+
+            // Bônus para mais de dois dias com um lançamento
+            if (getPreco() == Filme.LANCAMENTO && diasAluguel > 1)
+                   pontos++;
+
+            return pontos;
+      }
+}
+
+
+
+
+
+public class Filme {
+
+       // ...
+       private Preco preco;
+
+      public int getPreco() {
+            return preco.getPreco();
+      }
+
+      public void setPreco(int preco) {
+            switch (preco) {
+            case Filme.NORMAL:
+                   this.preco = new PrecoNormal();
+                   break;
+            case Filme.INFANTIL:
+                   this.preco = new PrecoInfantil();
+                   break;
+            case Filme.LANCAMENTO:
+                   this.preco = new PrecoLancamento();
+                   break;
+            default:
+                   throw new IllegalArgumentException("Código de Preço inválido");
+            }
+      }
+
+      // ...
+
+}
+Listagem 12. Classe Filme após a refatoração Trocar Tipo com State
+Agora que a classe Filme já teve o atributo preco refatorado, podemos mover o método getValor() para a classe Preco (Listagem 13) e depois aplicar a refatoração Trocar condicional por polimorfismo. Isto é importante porque cada preço tem um comportamento diferente em relação ao valor, sendo assim, cada classe implementa tal comportamento no seu próprio método getValor(). A Listagem 14 demostra o resultado desta refatoração.
+
+public abstract class Preco {
+
+      abstract public int getPreco();
+
+      public double getValor(int diasAluguel) {
+            double valor = 0;
+            switch (getPreco()) {
+            case Filme.NORMAL:
+                   valor += 1.5;
+                   if (diasAluguel > 3)
+                          valor += (diasAluguel - 3) * 1.5;
+                   break;
+            case Filme.INFANTIL:
+                   valor += 2;
+                   if (diasAluguel > 2)
+                          valor += (diasAluguel - 2) * 1.5;
+                   break;
+            case Filme.LANCAMENTO:
+                   valor += diasAluguel * 3;
+                   break;
+            }
+            return valor;
+      }
+}
+
+public class Filme {
+
+      // ...
+
+      public double getValor(int diasAluguel) {
+            return preco.getValor(diasAluguel);
+      }
+
+      // ...
+}
+Listagem 13. Classe Preco e classe Filme após mover o método getValor()
+public class PrecoNormal extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.NORMAL;
+      }
+
+      @Override
+      public double getValor(int diasAluguel) {
+            double valor = 1.5;
+            if (diasAluguel > 3)
+                   valor += (diasAluguel - 3) * 1.5;
+            return valor;
+      }
+}
+
+public class PrecoInfantil extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.INFANTIL;
+      }
+
+      @Override
+      public double getValor(int diasAluguel) {
+            double valor = 2;
+            if (diasAluguel > 2)
+                   valor += (diasAluguel - 2) * 1.5;
+            return valor;
+      }
+}
+
+public class PrecoLancamento extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.LANCAMENTO;
+      }
+
+      @Override
+      public double getValor(int diasAluguel) {
+            return diasAluguel * 3;
+      }
+}
+Listagem 14. Subclasses de Preco implementando seus próprios comportamentos
+Como todas as subclasses de Preco vão implementar o método getValor(), podemos torná-lo abstrato, de acordo com a Listagem 15.
+
+public abstract class Preco {
+      abstract public int getPreco();
+      abstract double getValor(int diasAluguel);
+}
+Listagem 15. Classe Preco com o método getValor() abstrato
+Podemos aplicar as mesmas refatorações (mover método e trocar condicional por polimorfismo) para o método getPontos(), mas como não são todas as faixas de preço que têm um comportamento diferente em relação aos pontos, deixaremos o comportamento padrão na classe Preco, como a Listagem 16 demonstra.
+
+public class Filme {
+
+      // ...
+
+      public int getPontos(int diasAluguel) {
+            return preco.getPontos(diasAluguel);
+      }
+
+      // ...
+}
+
+public abstract class Preco {
+
+      abstract public int getPreco();
+
+      abstract public double getValor(int diasAluguel);
+
+      public int getPontos(int diasAluguel) {
+            return 1;
+      }
+}
+
+public class PrecoLancamento extends Preco {
+
+      @Override
+      public int getPreco() {
+            return Filme.LANCAMENTO;
+      }
+
+      @Override
+      public double getValor(int diasAluguel) {
+            return diasAluguel * 3;
+      }
+
+      @Override
+      public int getPontos(int diasAluguel) {
+            if (diasAluguel > 1)
+                   return 2;
+            else
+                   return super.getPontos(diasAluguel);
+      }
+}
